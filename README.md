@@ -2,4 +2,4 @@
 ## Author
 Vo Duc Minh
 ## Exercise
-01 - Blinking two leds
+01 - Blinking Two Leds
