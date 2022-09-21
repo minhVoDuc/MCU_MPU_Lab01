@@ -135,12 +135,12 @@ int main(void)
  800017a:	d00b      	beq.n	8000194 <main+0x48>
  800017c:	e015      	b.n	80001aa <main+0x5e>
 			  case 0:{  // turn ON red led, turn OFF yellow led
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1); //turn YELLOW off
  800017e:	2201      	movs	r2, #1
  8000180:	2140      	movs	r1, #64	; 0x40
  8000182:	4811      	ldr	r0, [pc, #68]	; (80001c8 <main+0x7c>)
  8000184:	f000 fc00 	bl	8000988 <HAL_GPIO_WritePin>
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0);	   //turn RED on
  8000188:	2200      	movs	r2, #0
  800018a:	2120      	movs	r1, #32
  800018c:	480e      	ldr	r0, [pc, #56]	; (80001c8 <main+0x7c>)
@@ -149,12 +149,12 @@ int main(void)
  8000192:	e00a      	b.n	80001aa <main+0x5e>
 			  }
 			  case 1:{  // turn OFF red led, turn ON yellow led
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);   //turn RED off
  8000194:	2201      	movs	r2, #1
  8000196:	2120      	movs	r1, #32
  8000198:	480b      	ldr	r0, [pc, #44]	; (80001c8 <main+0x7c>)
  800019a:	f000 fbf5 	bl	8000988 <HAL_GPIO_WritePin>
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);//turn YELLOW on
  800019e:	2200      	movs	r2, #0
  80001a0:	2140      	movs	r1, #64	; 0x40
  80001a2:	4809      	ldr	r0, [pc, #36]	; (80001c8 <main+0x7c>)
@@ -163,7 +163,7 @@ int main(void)
  80001a8:	bf00      	nop
 			  }
 		  }
-		  led_stat = !led_stat;
+		  led_stat = !led_stat; //toggle status of led
  80001aa:	687b      	ldr	r3, [r7, #4]
  80001ac:	2b00      	cmp	r3, #0
  80001ae:	bf0c      	ite	eq

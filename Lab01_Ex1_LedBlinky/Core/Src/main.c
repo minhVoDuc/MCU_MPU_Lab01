@@ -99,17 +99,17 @@ int main(void)
 		  counter = 2;
 		  switch (led_stat){
 			  case 0:{  // turn ON red led, turn OFF yellow led
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 1); //turn YELLOW off
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0);	   //turn RED on
 				  break;
 			  }
 			  case 1:{  // turn OFF red led, turn ON yellow led
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);   //turn RED off
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0);//turn YELLOW on
 				  break;
 			  }
 		  }
-		  led_stat = !led_stat;
+		  led_stat = !led_stat; //toggle status of led
 	  }
 	  counter--;
 	  HAL_Delay(1000);
