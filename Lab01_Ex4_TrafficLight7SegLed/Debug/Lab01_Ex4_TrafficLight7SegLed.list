@@ -588,14 +588,14 @@ void display7SEG(int num){
  8000480:	08000539 	.word	0x08000539
  8000484:	08000545 	.word	0x08000545
 	switch (num){
-		case 0:{
+		case 0:{ // display 0 using leds: a, b, c, d, e, f
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_C_Pin |
  8000488:	2200      	movs	r2, #0
  800048a:	213f      	movs	r1, #63	; 0x3f
  800048c:	4835      	ldr	r0, [pc, #212]	; (8000564 <display7SEG+0x118>)
  800048e:	f000 fbdb 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_D_Pin | LED_E_Pin | LED_F_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_G_Pin, GPIO_PIN_SET);
+									LED_D_Pin | LED_E_Pin | LED_F_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_G_Pin, 1);
  8000492:	2201      	movs	r2, #1
  8000494:	2140      	movs	r1, #64	; 0x40
  8000496:	4833      	ldr	r0, [pc, #204]	; (8000564 <display7SEG+0x118>)
@@ -603,8 +603,8 @@ void display7SEG(int num){
 			break;
  800049c:	e05d      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 1:{
-			HAL_GPIO_WritePin(GPIOB, LED_B_Pin | LED_C_Pin, GPIO_PIN_RESET);
+		case 1:{ // display 1 using leds: b, c
+			HAL_GPIO_WritePin(GPIOB, LED_B_Pin | LED_C_Pin, 0);
  800049e:	2200      	movs	r2, #0
  80004a0:	2106      	movs	r1, #6
  80004a2:	4830      	ldr	r0, [pc, #192]	; (8000564 <display7SEG+0x118>)
@@ -614,18 +614,18 @@ void display7SEG(int num){
  80004aa:	2179      	movs	r1, #121	; 0x79
  80004ac:	482d      	ldr	r0, [pc, #180]	; (8000564 <display7SEG+0x118>)
  80004ae:	f000 fbcb 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_F_Pin | LED_G_Pin, GPIO_PIN_SET);
+									LED_F_Pin | LED_G_Pin, 1);
 			break;
  80004b2:	e052      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 2:{
+		case 2:{ // display 2 using leds: a, b, d, e, g
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_D_Pin |
  80004b4:	2200      	movs	r2, #0
  80004b6:	215b      	movs	r1, #91	; 0x5b
  80004b8:	482a      	ldr	r0, [pc, #168]	; (8000564 <display7SEG+0x118>)
  80004ba:	f000 fbc5 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_E_Pin | LED_G_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_C_Pin | LED_F_Pin, GPIO_PIN_SET);
+									LED_E_Pin | LED_G_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_C_Pin | LED_F_Pin, 1);
  80004be:	2201      	movs	r2, #1
  80004c0:	2124      	movs	r1, #36	; 0x24
  80004c2:	4828      	ldr	r0, [pc, #160]	; (8000564 <display7SEG+0x118>)
@@ -633,14 +633,14 @@ void display7SEG(int num){
 			break;
  80004c8:	e047      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 3:{
+		case 3:{ // display 3 using leds: a, b, c, d, g
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_C_Pin |
  80004ca:	2200      	movs	r2, #0
  80004cc:	214f      	movs	r1, #79	; 0x4f
  80004ce:	4825      	ldr	r0, [pc, #148]	; (8000564 <display7SEG+0x118>)
  80004d0:	f000 fbba 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_D_Pin | LED_G_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_E_Pin | LED_F_Pin, GPIO_PIN_SET);
+									LED_D_Pin | LED_G_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_E_Pin | LED_F_Pin, 1);
  80004d4:	2201      	movs	r2, #1
  80004d6:	2130      	movs	r1, #48	; 0x30
  80004d8:	4822      	ldr	r0, [pc, #136]	; (8000564 <display7SEG+0x118>)
@@ -648,14 +648,14 @@ void display7SEG(int num){
 			break;
  80004de:	e03c      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 4:{
+		case 4:{ // display 4 using leds: b, c, f, g
 			HAL_GPIO_WritePin(GPIOB, LED_B_Pin | LED_C_Pin | LED_F_Pin |
  80004e0:	2200      	movs	r2, #0
  80004e2:	2166      	movs	r1, #102	; 0x66
  80004e4:	481f      	ldr	r0, [pc, #124]	; (8000564 <display7SEG+0x118>)
  80004e6:	f000 fbaf 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_G_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_D_Pin | LED_E_Pin, GPIO_PIN_SET);
+									LED_G_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_D_Pin | LED_E_Pin, 1);
  80004ea:	2201      	movs	r2, #1
  80004ec:	2119      	movs	r1, #25
  80004ee:	481d      	ldr	r0, [pc, #116]	; (8000564 <display7SEG+0x118>)
@@ -663,14 +663,14 @@ void display7SEG(int num){
 			break;
  80004f4:	e031      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 5:{
+		case 5:{ // display 5 using leds: a, c, d, f, g
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_C_Pin | LED_D_Pin |
  80004f6:	2200      	movs	r2, #0
  80004f8:	216d      	movs	r1, #109	; 0x6d
  80004fa:	481a      	ldr	r0, [pc, #104]	; (8000564 <display7SEG+0x118>)
  80004fc:	f000 fba4 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_F_Pin | LED_G_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_B_Pin | LED_E_Pin, GPIO_PIN_SET);
+									LED_F_Pin | LED_G_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_B_Pin | LED_E_Pin, 1);
  8000500:	2201      	movs	r2, #1
  8000502:	2112      	movs	r1, #18
  8000504:	4817      	ldr	r0, [pc, #92]	; (8000564 <display7SEG+0x118>)
@@ -678,14 +678,14 @@ void display7SEG(int num){
 			break;
  800050a:	e026      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 6:{
+		case 6:{ // display 6 using leds: a, c, d, e, f, g
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_C_Pin | LED_D_Pin |
  800050c:	2200      	movs	r2, #0
  800050e:	217d      	movs	r1, #125	; 0x7d
  8000510:	4814      	ldr	r0, [pc, #80]	; (8000564 <display7SEG+0x118>)
  8000512:	f000 fb99 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_E_Pin | LED_F_Pin | LED_G_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_B_Pin, GPIO_PIN_SET);
+									LED_E_Pin | LED_F_Pin | LED_G_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_B_Pin, 1);
  8000516:	2201      	movs	r2, #1
  8000518:	2102      	movs	r1, #2
  800051a:	4812      	ldr	r0, [pc, #72]	; (8000564 <display7SEG+0x118>)
@@ -693,8 +693,8 @@ void display7SEG(int num){
 			break;
  8000520:	e01b      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 7:{
-			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_C_Pin, GPIO_PIN_RESET);
+		case 7:{ // diplay 7 using leds: a, b, c
+			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_C_Pin, 0);
  8000522:	2200      	movs	r2, #0
  8000524:	2107      	movs	r1, #7
  8000526:	480f      	ldr	r0, [pc, #60]	; (8000564 <display7SEG+0x118>)
@@ -704,29 +704,29 @@ void display7SEG(int num){
  800052e:	2178      	movs	r1, #120	; 0x78
  8000530:	480c      	ldr	r0, [pc, #48]	; (8000564 <display7SEG+0x118>)
  8000532:	f000 fb89 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_G_Pin, GPIO_PIN_SET);
+									LED_G_Pin, 1);
 			break;
  8000536:	e010      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 8:{
+		case 8:{ // display 8 using leds: a, b, c, d, e, f, g
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_C_Pin |
  8000538:	2200      	movs	r2, #0
  800053a:	217f      	movs	r1, #127	; 0x7f
  800053c:	4809      	ldr	r0, [pc, #36]	; (8000564 <display7SEG+0x118>)
  800053e:	f000 fb83 	bl	8000c48 <HAL_GPIO_WritePin>
 									LED_D_Pin | LED_E_Pin | LED_F_Pin |
-									LED_G_Pin, GPIO_PIN_RESET);
+									LED_G_Pin, 0);
 			break;
  8000542:	e00a      	b.n	800055a <display7SEG+0x10e>
 		}
-		case 9:{
+		case 9:{ // display 9 using leds: a, b, c, d, f, g
 			HAL_GPIO_WritePin(GPIOB, LED_A_Pin | LED_B_Pin | LED_C_Pin |
  8000544:	2200      	movs	r2, #0
  8000546:	216f      	movs	r1, #111	; 0x6f
  8000548:	4806      	ldr	r0, [pc, #24]	; (8000564 <display7SEG+0x118>)
  800054a:	f000 fb7d 	bl	8000c48 <HAL_GPIO_WritePin>
-									LED_D_Pin | LED_F_Pin | LED_G_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, LED_E_Pin, GPIO_PIN_SET);
+									LED_D_Pin | LED_F_Pin | LED_G_Pin, 0);
+			HAL_GPIO_WritePin(GPIOB, LED_E_Pin, 1);
  800054e:	2201      	movs	r2, #1
  8000550:	2110      	movs	r1, #16
  8000552:	4804      	ldr	r0, [pc, #16]	; (8000564 <display7SEG+0x118>)
