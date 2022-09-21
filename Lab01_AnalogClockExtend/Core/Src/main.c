@@ -88,8 +88,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int s = 0, m = 0, h = 0; // second, minute, hour
-  int s_ = 0, m_ = 0, h_ = 0; //prev second, minute, hour
+  int second = 0, minute = 0, hour = 0; // second, minute, hour
+  int second_ = 0, minute_ = 0, hour_ = 0; //prev second, minute, hour
   int counter = -1; // counter for calculate
   int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //manage on/off of led
   /* USER CODE END 2 */
@@ -108,43 +108,43 @@ int main(void)
 	}
 	if (counter == 3600) counter=0;
 	if (counter % 5 == 0){
-		s++;
-		s_ = s-1;
-		if (s==12) s=0;
-		enable[s_]--;
-		if (enable[s_] == 0) clearNumberOnClock(s_);
-		enable[s]++;
-		setNumberOnClock(s);
+		second++;
+		second_ = second-1;
+		if (second==12) second=0;
+		enable[second_]--;
+		if (enable[second_] == 0) clearNumberOnClock(second_);
+		enable[second]++;
+		setNumberOnClock(second);
 	}
 	if (counter % 300 == 0){
-		m++;
-		m_ = m-1;
-		if (m==12){
-			m=0;
+		minute++;
+		minute_ = minute-1;
+		if (minute==12){
+			minute=0;
 //			h++;
-//			h_ = h-1;
+//			hour_ = h-1;
 //			if (h==12) h=0;
-//			enable[h_]--;
-//			if (enable[h_] == 0) clearNumberOnClock(h_);
+//			enable[hour_]--;
+//			if (enable[hour_] == 0) clearNumberOnClock(hour_);
 //			enable[h]++;
 //			setNumberOnClock(h);
 		}
-		enable[m_]--;
-		if (enable[m_] == 0) clearNumberOnClock(m_);
-		enable[m]++;
-		setNumberOnClock(m);
+		enable[minute_]--;
+		if (enable[minute_] == 0) clearNumberOnClock(minute_);
+		enable[minute]++;
+		setNumberOnClock(minute);
 	}
 	if (counter % 3600 == 0){
-		h++;
-		h_ = h-1;
-		if (h==12) h=0;
-		enable[h_]--;
-		if (enable[h_] == 0) clearNumberOnClock(h_);
-		enable[h]++;
-		setNumberOnClock(h);
+		hour++;
+		hour_ = hour-1;
+		if (hour==12) hour=0;
+		enable[hour_]--;
+		if (enable[hour_] == 0) clearNumberOnClock(hour_);
+		enable[hour]++;
+		setNumberOnClock(hour);
 	}
 	counter++;
-	HAL_Delay(1000);
+	HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
