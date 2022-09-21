@@ -125,23 +125,20 @@ int main(void)
 		  switch(led_stat_2){
 			  case 0:{ //turn GREEN on
 				  led_stat_2 = 1;
-				  HAL_GPIO_WritePin(GPIOB, LED_GREEN_2_Pin, GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_2_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOB, LED_RED_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOB, LED_GREEN_2_Pin, 0);
+				  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_2_Pin | LED_RED_2_Pin, 1);
 				  break;
 			  }
 			  case 1:{ //turn YELLOW on
 				  led_stat_2 = 2;
-				  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_2_Pin, GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin(GPIOB, LED_RED_2_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOB, LED_GREEN_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_2_Pin, 0);
+				  HAL_GPIO_WritePin(GPIOB, LED_RED_2_Pin | LED_GREEN_2_Pin, 1);
 				  break;
 			  }
 			  case 2:{ //turn RED on
 				  led_stat_2 = 0;
-				  HAL_GPIO_WritePin(GPIOB, LED_RED_2_Pin, GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin(GPIOB, LED_GREEN_2_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOB, LED_YELLOW_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOB, LED_RED_2_Pin, 0);
+				  HAL_GPIO_WritePin(GPIOB, LED_GREEN_2_Pin | LED_YELLOW_2_Pin, 1);
 				  break;
 			  }
 		  }
