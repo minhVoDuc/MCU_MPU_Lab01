@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0001559e  00000000  00000000  00024628  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000045b5  00000000  00000000  00039bc6  2**0
+ 17 .debug_line   000045b3  00000000  00000000  00039bc6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000798c4  00000000  00000000  0003e17b  2**0
+ 18 .debug_str    000798e0  00000000  00000000  0003e179  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b7a3f  2**0
+ 19 .comment      00000053  00000000  00000000  000b7a59  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000d98  00000000  00000000  000b7a94  2**2
+ 20 .debug_frame  00000d98  00000000  00000000  000b7aac  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -315,11 +315,6 @@ static void MX_GPIO_Init(void)
 void clearAllClock(){
  800027c:	b580      	push	{r7, lr}
  800027e:	af00      	add	r7, sp, #0
-	HAL_GPIO_WritePin(CLK_07_GPIO_Port, CLK_07_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(CLK_08_GPIO_Port, CLK_08_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(CLK_09_GPIO_Port, CLK_09_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(CLK_10_GPIO_Port, CLK_10_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(CLK_11_GPIO_Port, CLK_11_Pin, GPIO_PIN_SET);*/
 	HAL_GPIO_WritePin(GPIOA, CLK_0_Pin|CLK_1_Pin|CLK_2_Pin|CLK_3_Pin|
  8000280:	2201      	movs	r2, #1
  8000282:	f64f 71f0 	movw	r1, #65520	; 0xfff0
@@ -358,7 +353,7 @@ void setNumberOnClock(int num){
  80002d4:	0800036b 	.word	0x0800036b
 	switch (num){
 		case 0:{
-			HAL_GPIO_WritePin(CLK_0_GPIO_Port, CLK_0_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, GPIO_PIN_RESET);
  80002d8:	2200      	movs	r2, #0
  80002da:	2110      	movs	r1, #16
  80002dc:	4828      	ldr	r0, [pc, #160]	; (8000380 <setNumberOnClock+0xec>)
@@ -367,7 +362,7 @@ void setNumberOnClock(int num){
  80002e2:	e049      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 1:{
-			HAL_GPIO_WritePin(CLK_1_GPIO_Port, CLK_1_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, GPIO_PIN_RESET);
  80002e4:	2200      	movs	r2, #0
  80002e6:	2120      	movs	r1, #32
  80002e8:	4825      	ldr	r0, [pc, #148]	; (8000380 <setNumberOnClock+0xec>)
@@ -376,7 +371,7 @@ void setNumberOnClock(int num){
  80002ee:	e043      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 2:{
-			HAL_GPIO_WritePin(CLK_2_GPIO_Port, CLK_2_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, GPIO_PIN_RESET);
  80002f0:	2200      	movs	r2, #0
  80002f2:	2140      	movs	r1, #64	; 0x40
  80002f4:	4822      	ldr	r0, [pc, #136]	; (8000380 <setNumberOnClock+0xec>)
@@ -385,7 +380,7 @@ void setNumberOnClock(int num){
  80002fa:	e03d      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 3:{
-			HAL_GPIO_WritePin(CLK_3_GPIO_Port, CLK_3_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, GPIO_PIN_RESET);
  80002fc:	2200      	movs	r2, #0
  80002fe:	2180      	movs	r1, #128	; 0x80
  8000300:	481f      	ldr	r0, [pc, #124]	; (8000380 <setNumberOnClock+0xec>)
@@ -394,7 +389,7 @@ void setNumberOnClock(int num){
  8000306:	e037      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 4:{
-			HAL_GPIO_WritePin(CLK_4_GPIO_Port, CLK_4_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, GPIO_PIN_RESET);
  8000308:	2200      	movs	r2, #0
  800030a:	f44f 7180 	mov.w	r1, #256	; 0x100
  800030e:	481c      	ldr	r0, [pc, #112]	; (8000380 <setNumberOnClock+0xec>)
@@ -403,7 +398,7 @@ void setNumberOnClock(int num){
  8000314:	e030      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 5:{
-			HAL_GPIO_WritePin(CLK_5_GPIO_Port, CLK_5_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, GPIO_PIN_RESET);
  8000316:	2200      	movs	r2, #0
  8000318:	f44f 7100 	mov.w	r1, #512	; 0x200
  800031c:	4818      	ldr	r0, [pc, #96]	; (8000380 <setNumberOnClock+0xec>)
@@ -412,7 +407,7 @@ void setNumberOnClock(int num){
  8000322:	e029      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 6:{
-			HAL_GPIO_WritePin(CLK_6_GPIO_Port, CLK_6_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, GPIO_PIN_RESET);
  8000324:	2200      	movs	r2, #0
  8000326:	f44f 6180 	mov.w	r1, #1024	; 0x400
  800032a:	4815      	ldr	r0, [pc, #84]	; (8000380 <setNumberOnClock+0xec>)
@@ -421,7 +416,7 @@ void setNumberOnClock(int num){
  8000330:	e022      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 7:{
-			HAL_GPIO_WritePin(CLK_7_GPIO_Port, CLK_7_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, GPIO_PIN_RESET);
  8000332:	2200      	movs	r2, #0
  8000334:	f44f 6100 	mov.w	r1, #2048	; 0x800
  8000338:	4811      	ldr	r0, [pc, #68]	; (8000380 <setNumberOnClock+0xec>)
@@ -430,7 +425,7 @@ void setNumberOnClock(int num){
  800033e:	e01b      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 8:{
-			HAL_GPIO_WritePin(CLK_8_GPIO_Port, CLK_8_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, GPIO_PIN_RESET);
  8000340:	2200      	movs	r2, #0
  8000342:	f44f 5180 	mov.w	r1, #4096	; 0x1000
  8000346:	480e      	ldr	r0, [pc, #56]	; (8000380 <setNumberOnClock+0xec>)
@@ -439,7 +434,7 @@ void setNumberOnClock(int num){
  800034c:	e014      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 9:{
-			HAL_GPIO_WritePin(CLK_9_GPIO_Port, CLK_9_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, GPIO_PIN_RESET);
  800034e:	2200      	movs	r2, #0
  8000350:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000354:	480a      	ldr	r0, [pc, #40]	; (8000380 <setNumberOnClock+0xec>)
@@ -448,7 +443,7 @@ void setNumberOnClock(int num){
  800035a:	e00d      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 10:{
-			HAL_GPIO_WritePin(CLK_10_GPIO_Port, CLK_10_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, GPIO_PIN_RESET);
  800035c:	2200      	movs	r2, #0
  800035e:	f44f 4180 	mov.w	r1, #16384	; 0x4000
  8000362:	4807      	ldr	r0, [pc, #28]	; (8000380 <setNumberOnClock+0xec>)
@@ -457,7 +452,7 @@ void setNumberOnClock(int num){
  8000368:	e006      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
 		case 11:{
-			HAL_GPIO_WritePin(CLK_11_GPIO_Port, CLK_11_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, GPIO_PIN_RESET);
  800036a:	2200      	movs	r2, #0
  800036c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  8000370:	4803      	ldr	r0, [pc, #12]	; (8000380 <setNumberOnClock+0xec>)
@@ -499,7 +494,7 @@ void clearNumberOnClock(int num){
  80003c4:	0800045b 	.word	0x0800045b
 	switch (num){
 		case 0:{
-			HAL_GPIO_WritePin(CLK_0_GPIO_Port, CLK_0_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, GPIO_PIN_SET);
  80003c8:	2201      	movs	r2, #1
  80003ca:	2110      	movs	r1, #16
  80003cc:	4828      	ldr	r0, [pc, #160]	; (8000470 <clearNumberOnClock+0xec>)
@@ -508,7 +503,7 @@ void clearNumberOnClock(int num){
  80003d2:	e049      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 1:{
-			HAL_GPIO_WritePin(CLK_1_GPIO_Port, CLK_1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, GPIO_PIN_SET);
  80003d4:	2201      	movs	r2, #1
  80003d6:	2120      	movs	r1, #32
  80003d8:	4825      	ldr	r0, [pc, #148]	; (8000470 <clearNumberOnClock+0xec>)
@@ -517,7 +512,7 @@ void clearNumberOnClock(int num){
  80003de:	e043      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 2:{
-			HAL_GPIO_WritePin(CLK_2_GPIO_Port, CLK_2_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, GPIO_PIN_SET);
  80003e0:	2201      	movs	r2, #1
  80003e2:	2140      	movs	r1, #64	; 0x40
  80003e4:	4822      	ldr	r0, [pc, #136]	; (8000470 <clearNumberOnClock+0xec>)
@@ -526,7 +521,7 @@ void clearNumberOnClock(int num){
  80003ea:	e03d      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 3:{
-			HAL_GPIO_WritePin(CLK_3_GPIO_Port, CLK_3_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, GPIO_PIN_SET);
  80003ec:	2201      	movs	r2, #1
  80003ee:	2180      	movs	r1, #128	; 0x80
  80003f0:	481f      	ldr	r0, [pc, #124]	; (8000470 <clearNumberOnClock+0xec>)
@@ -535,7 +530,7 @@ void clearNumberOnClock(int num){
  80003f6:	e037      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 4:{
-			HAL_GPIO_WritePin(CLK_4_GPIO_Port, CLK_4_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, GPIO_PIN_SET);
  80003f8:	2201      	movs	r2, #1
  80003fa:	f44f 7180 	mov.w	r1, #256	; 0x100
  80003fe:	481c      	ldr	r0, [pc, #112]	; (8000470 <clearNumberOnClock+0xec>)
@@ -544,7 +539,7 @@ void clearNumberOnClock(int num){
  8000404:	e030      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 5:{
-			HAL_GPIO_WritePin(CLK_5_GPIO_Port, CLK_5_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, GPIO_PIN_SET);
  8000406:	2201      	movs	r2, #1
  8000408:	f44f 7100 	mov.w	r1, #512	; 0x200
  800040c:	4818      	ldr	r0, [pc, #96]	; (8000470 <clearNumberOnClock+0xec>)
@@ -553,7 +548,7 @@ void clearNumberOnClock(int num){
  8000412:	e029      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 6:{
-			HAL_GPIO_WritePin(CLK_6_GPIO_Port, CLK_6_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, GPIO_PIN_SET);
  8000414:	2201      	movs	r2, #1
  8000416:	f44f 6180 	mov.w	r1, #1024	; 0x400
  800041a:	4815      	ldr	r0, [pc, #84]	; (8000470 <clearNumberOnClock+0xec>)
@@ -562,7 +557,7 @@ void clearNumberOnClock(int num){
  8000420:	e022      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 7:{
-			HAL_GPIO_WritePin(CLK_7_GPIO_Port, CLK_7_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, GPIO_PIN_SET);
  8000422:	2201      	movs	r2, #1
  8000424:	f44f 6100 	mov.w	r1, #2048	; 0x800
  8000428:	4811      	ldr	r0, [pc, #68]	; (8000470 <clearNumberOnClock+0xec>)
@@ -571,7 +566,7 @@ void clearNumberOnClock(int num){
  800042e:	e01b      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 8:{
-			HAL_GPIO_WritePin(CLK_8_GPIO_Port, CLK_8_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, GPIO_PIN_SET);
  8000430:	2201      	movs	r2, #1
  8000432:	f44f 5180 	mov.w	r1, #4096	; 0x1000
  8000436:	480e      	ldr	r0, [pc, #56]	; (8000470 <clearNumberOnClock+0xec>)
@@ -580,7 +575,7 @@ void clearNumberOnClock(int num){
  800043c:	e014      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 9:{
-			HAL_GPIO_WritePin(CLK_9_GPIO_Port, CLK_9_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, GPIO_PIN_SET);
  800043e:	2201      	movs	r2, #1
  8000440:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000444:	480a      	ldr	r0, [pc, #40]	; (8000470 <clearNumberOnClock+0xec>)
@@ -589,7 +584,7 @@ void clearNumberOnClock(int num){
  800044a:	e00d      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 10:{
-			HAL_GPIO_WritePin(CLK_10_GPIO_Port, CLK_10_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, GPIO_PIN_SET);
  800044c:	2201      	movs	r2, #1
  800044e:	f44f 4180 	mov.w	r1, #16384	; 0x4000
  8000452:	4807      	ldr	r0, [pc, #28]	; (8000470 <clearNumberOnClock+0xec>)
@@ -598,7 +593,7 @@ void clearNumberOnClock(int num){
  8000458:	e006      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
 		case 11:{
-			HAL_GPIO_WritePin(CLK_11_GPIO_Port, CLK_11_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, GPIO_PIN_SET);
  800045a:	2201      	movs	r2, #1
  800045c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  8000460:	4803      	ldr	r0, [pc, #12]	; (8000470 <clearNumberOnClock+0xec>)
