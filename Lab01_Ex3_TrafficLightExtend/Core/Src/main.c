@@ -87,8 +87,8 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   int led_stat_1 = 0, led_stat_2 = 2; //0: turn GREEN on, 1: turn YELLOW on, 2: turn RED on
-  int counter_1 = 0, counter_2 = 0; //(3: GREEN stays, 2: YELLOW stays, 5: RED stays) * 1s
-  const int counter_lst[3] = {3, 2, 5}; //(5: GREEN stays, 2: YELLOW stays, 3: RED stays) * 1000ms
+  int counter_1 = 0, counter_2 = 0; //counter for each traffic light
+  const int counter_lst[3] = {3, 2, 5}; //(3: GREEN stays, 2: YELLOW stays, 5: RED stays) * 1000ms
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -97,47 +97,47 @@ int main(void)
 	  /* USER CODE END WHILE */
 	  /* USER CODE BEGIN 3 */
 	  if (counter_1==0){ // Check first traffic light
-	  	  counter_1 = counter_lst[led_stat_1];
+	  	  counter_1 = counter_lst[led_stat_1]; //set counter base on current led state
 		  switch(led_stat_1){
-		  	  case 0:{
+		  	  case 0:{ //turn GREEN on
 		  		  led_stat_1 = 1;
-		  		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_1_Pin, GPIO_PIN_RESET);
-		  		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_1_Pin | LED_RED_1_Pin, GPIO_PIN_SET);
+		  		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_1_Pin, 0);
+		  		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_1_Pin | LED_RED_1_Pin, 1);
 		  		  break;
 		  	  }
-		  	  case 1:{
+		  	  case 1:{ //turn YELLOW on
 		  		  led_stat_1 = 2;
-		  		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_1_Pin, GPIO_PIN_RESET);
-		  		  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin | LED_GREEN_1_Pin, GPIO_PIN_SET);
+		  		  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_1_Pin, 0);
+		  		  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin | LED_GREEN_1_Pin, 1);
 		  		  break;
 		  	  }
-		  	  case 2:{
+		  	  case 2:{ //turn RED on
 		  		  led_stat_1 = 0;
-		  		  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin, GPIO_PIN_RESET);
-		  		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_1_Pin | LED_YELLOW_1_Pin, GPIO_PIN_SET);
+		  		  HAL_GPIO_WritePin(GPIOA, LED_RED_1_Pin, 0);
+		  		  HAL_GPIO_WritePin(GPIOA, LED_GREEN_1_Pin | LED_YELLOW_1_Pin, 1);
 		  		  break;
 		  	  }
 		  }
 	  }
 	  if (counter_2==0){ // Check second traffic light
-		  counter_2 = counter_lst[led_stat_2];
+		  counter_2 = counter_lst[led_stat_2]; //set counter base on current led state
 		  switch(led_stat_2){
-			  case 0:{
+			  case 0:{ //turn GREEN on
 				  led_stat_2 = 1;
-				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_2_Pin, GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_2_Pin | LED_RED_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_2_Pin, 0);
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_2_Pin | LED_RED_2_Pin, 1);
 				  break;
 			  }
-			  case 1:{
+			  case 1:{ //turn YELLOW on
 				  led_stat_2 = 2;
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_2_Pin, GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_2_Pin | LED_GREEN_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_2_Pin, 0);
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_2_Pin | LED_GREEN_2_Pin, 1);
 				  break;
 			  }
-			  case 2:{
+			  case 2:{ //turn RED on
 				  led_stat_2 = 0;
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_2_Pin, GPIO_PIN_RESET);
-				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_2_Pin | LED_YELLOW_2_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_2_Pin, 0);
+				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_2_Pin | LED_YELLOW_2_Pin, 1);
 				  break;
 			  }
 		  }
