@@ -97,13 +97,13 @@ int main(void)
   {
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-	  if (counter == -1){
+	  if (counter == -1){ //init state, turn OFF all clock leds
 		  clearAllClock();
-		  counter = 12;
+		  counter = 12; // set counter equal to led 0
 	  }
-	  clearNumberOnClock(counter-1);
-	  if (counter==12) counter = 0;
-	  setNumberOnClock(counter);
+	  clearNumberOnClock(counter-1); //turn OFF previous led
+	  if (counter==12) counter = 0;  //check if counter = 12, change it to 0
+	  setNumberOnClock(counter);     //turn ON current led
 	  counter++;
 	  HAL_Delay(1000);
   }
@@ -179,57 +179,57 @@ static void MX_GPIO_Init(void)
 void clearAllClock(){
 	HAL_GPIO_WritePin(GPIOA, CLK_0_Pin|CLK_1_Pin|CLK_2_Pin|CLK_3_Pin|
 							CLK_4_Pin|CLK_5_Pin|CLK_6_Pin|CLK_7_Pin|
-							CLK_8_Pin|CLK_9_Pin|CLK_10_Pin|CLK_11_Pin, GPIO_PIN_SET);
+							CLK_8_Pin|CLK_9_Pin|CLK_10_Pin|CLK_11_Pin, 0); //turn OFF all clock leds
 }
 
 void setNumberOnClock(int num){
 	switch (num){
-		case 0:{
-			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, GPIO_PIN_RESET);
+		case 0:{ //turn on clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, 0);
 			break;
 		}
-		case 1:{
-			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, GPIO_PIN_RESET);
+		case 1:{ //turn on clock led 1
+			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, 0);
 			break;
 		}
-		case 2:{
-			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, GPIO_PIN_RESET);
+		case 2:{ //turn on clock led 2
+			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, 0);
 			break;
 		}
-		case 3:{
-			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, GPIO_PIN_RESET);
+		case 3:{ //turn on clock led 3
+			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, 0);
 			break;
 		}
-		case 4:{
-			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, GPIO_PIN_RESET);
+		case 4:{ //turn on clock led 4
+			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, 0);
 			break;
 		}
-		case 5:{
-			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, GPIO_PIN_RESET);
+		case 5:{ //turn on clock led 5
+			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, 0);
 			break;
 		}
-		case 6:{
-			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, GPIO_PIN_RESET);
+		case 6:{ //turn on clock led 6
+			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, 0);
 			break;
 		}
-		case 7:{
-			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, GPIO_PIN_RESET);
+		case 7:{ //turn on clock led 7
+			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, 0);
 			break;
 		}
-		case 8:{
-			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, GPIO_PIN_RESET);
+		case 8:{ //turn on clock led 8
+			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, 0);
 			break;
 		}
-		case 9:{
-			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, GPIO_PIN_RESET);
+		case 9:{ //turn on clock led 9
+			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, 0);
 			break;
 		}
-		case 10:{
-			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, GPIO_PIN_RESET);
+		case 10:{ //turn on clock led 10
+			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, 0);
 			break;
 		}
-		case 11:{
-			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, GPIO_PIN_RESET);
+		case 11:{ //turn on clock led 11
+			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, 0);
 			break;
 		}
 	}
@@ -237,52 +237,52 @@ void setNumberOnClock(int num){
 
 void clearNumberOnClock(int num){
 	switch (num){
-		case 0:{
-			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, GPIO_PIN_SET);
+		case 0:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, 1);
 			break;
 		}
-		case 1:{
-			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, GPIO_PIN_SET);
+		case 1:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, 1);
 			break;
 		}
-		case 2:{
-			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, GPIO_PIN_SET);
+		case 2:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, 1);
 			break;
 		}
-		case 3:{
-			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, GPIO_PIN_SET);
+		case 3:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, 1);
 			break;
 		}
-		case 4:{
-			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, GPIO_PIN_SET);
+		case 4:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, 1);
 			break;
 		}
-		case 5:{
-			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, GPIO_PIN_SET);
+		case 5:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, 1);
 			break;
 		}
-		case 6:{
-			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, GPIO_PIN_SET);
+		case 6:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, 1);
 			break;
 		}
-		case 7:{
-			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, GPIO_PIN_SET);
+		case 7:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, 1);
 			break;
 		}
-		case 8:{
-			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, GPIO_PIN_SET);
+		case 8:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, 1);
 			break;
 		}
-		case 9:{
-			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, GPIO_PIN_SET);
+		case 9:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, 1);
 			break;
 		}
-		case 10:{
-			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, GPIO_PIN_SET);
+		case 10:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, 1);
 			break;
 		}
-		case 11:{
-			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, GPIO_PIN_SET);
+		case 11:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, 1);
 			break;
 		}
 	}

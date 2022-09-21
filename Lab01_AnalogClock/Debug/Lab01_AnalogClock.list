@@ -116,28 +116,28 @@ int main(void)
   {
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-	  if (counter == -1){
+	  if (counter == -1){ //init state, turn OFF all clock leds
  8000164:	687b      	ldr	r3, [r7, #4]
  8000166:	f1b3 3fff 	cmp.w	r3, #4294967295
  800016a:	d103      	bne.n	8000174 <main+0x28>
 		  clearAllClock();
  800016c:	f000 f886 	bl	800027c <clearAllClock>
-		  counter = 12;
+		  counter = 12; // set counter equal to led 0
  8000170:	230c      	movs	r3, #12
  8000172:	607b      	str	r3, [r7, #4]
 	  }
-	  clearNumberOnClock(counter-1);
+	  clearNumberOnClock(counter-1); //turn OFF previous led
  8000174:	687b      	ldr	r3, [r7, #4]
  8000176:	3b01      	subs	r3, #1
  8000178:	4618      	mov	r0, r3
  800017a:	f000 f903 	bl	8000384 <clearNumberOnClock>
-	  if (counter==12) counter = 0;
+	  if (counter==12) counter = 0;  //check if counter = 12, change it to 0
  800017e:	687b      	ldr	r3, [r7, #4]
  8000180:	2b0c      	cmp	r3, #12
  8000182:	d101      	bne.n	8000188 <main+0x3c>
  8000184:	2300      	movs	r3, #0
  8000186:	607b      	str	r3, [r7, #4]
-	  setNumberOnClock(counter);
+	  setNumberOnClock(counter);     //turn ON current led
  8000188:	6878      	ldr	r0, [r7, #4]
  800018a:	f000 f883 	bl	8000294 <setNumberOnClock>
 	  counter++;
@@ -147,7 +147,7 @@ int main(void)
 	  HAL_Delay(1000);
  8000194:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000198:	f000 fa5a 	bl	8000650 <HAL_Delay>
-	  if (counter == -1){
+	  if (counter == -1){ //init state, turn OFF all clock leds
  800019c:	e7e2      	b.n	8000164 <main+0x18>
 
 0800019e <SystemClock_Config>:
@@ -316,12 +316,12 @@ void clearAllClock(){
  800027c:	b580      	push	{r7, lr}
  800027e:	af00      	add	r7, sp, #0
 	HAL_GPIO_WritePin(GPIOA, CLK_0_Pin|CLK_1_Pin|CLK_2_Pin|CLK_3_Pin|
- 8000280:	2201      	movs	r2, #1
+ 8000280:	2200      	movs	r2, #0
  8000282:	f64f 71f0 	movw	r1, #65520	; 0xfff0
  8000286:	4802      	ldr	r0, [pc, #8]	; (8000290 <clearAllClock+0x14>)
  8000288:	f000 fc64 	bl	8000b54 <HAL_GPIO_WritePin>
 							CLK_4_Pin|CLK_5_Pin|CLK_6_Pin|CLK_7_Pin|
-							CLK_8_Pin|CLK_9_Pin|CLK_10_Pin|CLK_11_Pin, GPIO_PIN_SET);
+							CLK_8_Pin|CLK_9_Pin|CLK_10_Pin|CLK_11_Pin, 0); //turn OFF all clock leds
 }
  800028c:	bf00      	nop
  800028e:	bd80      	pop	{r7, pc}
@@ -352,8 +352,8 @@ void setNumberOnClock(int num){
  80002d0:	0800035d 	.word	0x0800035d
  80002d4:	0800036b 	.word	0x0800036b
 	switch (num){
-		case 0:{
-			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, GPIO_PIN_RESET);
+		case 0:{ //turn on clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, 0);
  80002d8:	2200      	movs	r2, #0
  80002da:	2110      	movs	r1, #16
  80002dc:	4828      	ldr	r0, [pc, #160]	; (8000380 <setNumberOnClock+0xec>)
@@ -361,8 +361,8 @@ void setNumberOnClock(int num){
 			break;
  80002e2:	e049      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 1:{
-			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, GPIO_PIN_RESET);
+		case 1:{ //turn on clock led 1
+			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, 0);
  80002e4:	2200      	movs	r2, #0
  80002e6:	2120      	movs	r1, #32
  80002e8:	4825      	ldr	r0, [pc, #148]	; (8000380 <setNumberOnClock+0xec>)
@@ -370,8 +370,8 @@ void setNumberOnClock(int num){
 			break;
  80002ee:	e043      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 2:{
-			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, GPIO_PIN_RESET);
+		case 2:{ //turn on clock led 2
+			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, 0);
  80002f0:	2200      	movs	r2, #0
  80002f2:	2140      	movs	r1, #64	; 0x40
  80002f4:	4822      	ldr	r0, [pc, #136]	; (8000380 <setNumberOnClock+0xec>)
@@ -379,8 +379,8 @@ void setNumberOnClock(int num){
 			break;
  80002fa:	e03d      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 3:{
-			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, GPIO_PIN_RESET);
+		case 3:{ //turn on clock led 3
+			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, 0);
  80002fc:	2200      	movs	r2, #0
  80002fe:	2180      	movs	r1, #128	; 0x80
  8000300:	481f      	ldr	r0, [pc, #124]	; (8000380 <setNumberOnClock+0xec>)
@@ -388,8 +388,8 @@ void setNumberOnClock(int num){
 			break;
  8000306:	e037      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 4:{
-			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, GPIO_PIN_RESET);
+		case 4:{ //turn on clock led 4
+			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, 0);
  8000308:	2200      	movs	r2, #0
  800030a:	f44f 7180 	mov.w	r1, #256	; 0x100
  800030e:	481c      	ldr	r0, [pc, #112]	; (8000380 <setNumberOnClock+0xec>)
@@ -397,8 +397,8 @@ void setNumberOnClock(int num){
 			break;
  8000314:	e030      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 5:{
-			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, GPIO_PIN_RESET);
+		case 5:{ //turn on clock led 5
+			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, 0);
  8000316:	2200      	movs	r2, #0
  8000318:	f44f 7100 	mov.w	r1, #512	; 0x200
  800031c:	4818      	ldr	r0, [pc, #96]	; (8000380 <setNumberOnClock+0xec>)
@@ -406,8 +406,8 @@ void setNumberOnClock(int num){
 			break;
  8000322:	e029      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 6:{
-			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, GPIO_PIN_RESET);
+		case 6:{ //turn on clock led 6
+			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, 0);
  8000324:	2200      	movs	r2, #0
  8000326:	f44f 6180 	mov.w	r1, #1024	; 0x400
  800032a:	4815      	ldr	r0, [pc, #84]	; (8000380 <setNumberOnClock+0xec>)
@@ -415,8 +415,8 @@ void setNumberOnClock(int num){
 			break;
  8000330:	e022      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 7:{
-			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, GPIO_PIN_RESET);
+		case 7:{ //turn on clock led 7
+			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, 0);
  8000332:	2200      	movs	r2, #0
  8000334:	f44f 6100 	mov.w	r1, #2048	; 0x800
  8000338:	4811      	ldr	r0, [pc, #68]	; (8000380 <setNumberOnClock+0xec>)
@@ -424,8 +424,8 @@ void setNumberOnClock(int num){
 			break;
  800033e:	e01b      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 8:{
-			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, GPIO_PIN_RESET);
+		case 8:{ //turn on clock led 8
+			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, 0);
  8000340:	2200      	movs	r2, #0
  8000342:	f44f 5180 	mov.w	r1, #4096	; 0x1000
  8000346:	480e      	ldr	r0, [pc, #56]	; (8000380 <setNumberOnClock+0xec>)
@@ -433,8 +433,8 @@ void setNumberOnClock(int num){
 			break;
  800034c:	e014      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 9:{
-			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, GPIO_PIN_RESET);
+		case 9:{ //turn on clock led 9
+			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, 0);
  800034e:	2200      	movs	r2, #0
  8000350:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000354:	480a      	ldr	r0, [pc, #40]	; (8000380 <setNumberOnClock+0xec>)
@@ -442,8 +442,8 @@ void setNumberOnClock(int num){
 			break;
  800035a:	e00d      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 10:{
-			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, GPIO_PIN_RESET);
+		case 10:{ //turn on clock led 10
+			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, 0);
  800035c:	2200      	movs	r2, #0
  800035e:	f44f 4180 	mov.w	r1, #16384	; 0x4000
  8000362:	4807      	ldr	r0, [pc, #28]	; (8000380 <setNumberOnClock+0xec>)
@@ -451,8 +451,8 @@ void setNumberOnClock(int num){
 			break;
  8000368:	e006      	b.n	8000378 <setNumberOnClock+0xe4>
 		}
-		case 11:{
-			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, GPIO_PIN_RESET);
+		case 11:{ //turn on clock led 11
+			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, 0);
  800036a:	2200      	movs	r2, #0
  800036c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  8000370:	4803      	ldr	r0, [pc, #12]	; (8000380 <setNumberOnClock+0xec>)
@@ -493,8 +493,8 @@ void clearNumberOnClock(int num){
  80003c0:	0800044d 	.word	0x0800044d
  80003c4:	0800045b 	.word	0x0800045b
 	switch (num){
-		case 0:{
-			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, GPIO_PIN_SET);
+		case 0:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_0_Pin, 1);
  80003c8:	2201      	movs	r2, #1
  80003ca:	2110      	movs	r1, #16
  80003cc:	4828      	ldr	r0, [pc, #160]	; (8000470 <clearNumberOnClock+0xec>)
@@ -502,8 +502,8 @@ void clearNumberOnClock(int num){
 			break;
  80003d2:	e049      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 1:{
-			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, GPIO_PIN_SET);
+		case 1:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_1_Pin, 1);
  80003d4:	2201      	movs	r2, #1
  80003d6:	2120      	movs	r1, #32
  80003d8:	4825      	ldr	r0, [pc, #148]	; (8000470 <clearNumberOnClock+0xec>)
@@ -511,8 +511,8 @@ void clearNumberOnClock(int num){
 			break;
  80003de:	e043      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 2:{
-			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, GPIO_PIN_SET);
+		case 2:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_2_Pin, 1);
  80003e0:	2201      	movs	r2, #1
  80003e2:	2140      	movs	r1, #64	; 0x40
  80003e4:	4822      	ldr	r0, [pc, #136]	; (8000470 <clearNumberOnClock+0xec>)
@@ -520,8 +520,8 @@ void clearNumberOnClock(int num){
 			break;
  80003ea:	e03d      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 3:{
-			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, GPIO_PIN_SET);
+		case 3:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_3_Pin, 1);
  80003ec:	2201      	movs	r2, #1
  80003ee:	2180      	movs	r1, #128	; 0x80
  80003f0:	481f      	ldr	r0, [pc, #124]	; (8000470 <clearNumberOnClock+0xec>)
@@ -529,8 +529,8 @@ void clearNumberOnClock(int num){
 			break;
  80003f6:	e037      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 4:{
-			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, GPIO_PIN_SET);
+		case 4:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_4_Pin, 1);
  80003f8:	2201      	movs	r2, #1
  80003fa:	f44f 7180 	mov.w	r1, #256	; 0x100
  80003fe:	481c      	ldr	r0, [pc, #112]	; (8000470 <clearNumberOnClock+0xec>)
@@ -538,8 +538,8 @@ void clearNumberOnClock(int num){
 			break;
  8000404:	e030      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 5:{
-			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, GPIO_PIN_SET);
+		case 5:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_5_Pin, 1);
  8000406:	2201      	movs	r2, #1
  8000408:	f44f 7100 	mov.w	r1, #512	; 0x200
  800040c:	4818      	ldr	r0, [pc, #96]	; (8000470 <clearNumberOnClock+0xec>)
@@ -547,8 +547,8 @@ void clearNumberOnClock(int num){
 			break;
  8000412:	e029      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 6:{
-			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, GPIO_PIN_SET);
+		case 6:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_6_Pin, 1);
  8000414:	2201      	movs	r2, #1
  8000416:	f44f 6180 	mov.w	r1, #1024	; 0x400
  800041a:	4815      	ldr	r0, [pc, #84]	; (8000470 <clearNumberOnClock+0xec>)
@@ -556,8 +556,8 @@ void clearNumberOnClock(int num){
 			break;
  8000420:	e022      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 7:{
-			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, GPIO_PIN_SET);
+		case 7:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_7_Pin, 1);
  8000422:	2201      	movs	r2, #1
  8000424:	f44f 6100 	mov.w	r1, #2048	; 0x800
  8000428:	4811      	ldr	r0, [pc, #68]	; (8000470 <clearNumberOnClock+0xec>)
@@ -565,8 +565,8 @@ void clearNumberOnClock(int num){
 			break;
  800042e:	e01b      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 8:{
-			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, GPIO_PIN_SET);
+		case 8:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_8_Pin, 1);
  8000430:	2201      	movs	r2, #1
  8000432:	f44f 5180 	mov.w	r1, #4096	; 0x1000
  8000436:	480e      	ldr	r0, [pc, #56]	; (8000470 <clearNumberOnClock+0xec>)
@@ -574,8 +574,8 @@ void clearNumberOnClock(int num){
 			break;
  800043c:	e014      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 9:{
-			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, GPIO_PIN_SET);
+		case 9:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_9_Pin, 1);
  800043e:	2201      	movs	r2, #1
  8000440:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000444:	480a      	ldr	r0, [pc, #40]	; (8000470 <clearNumberOnClock+0xec>)
@@ -583,8 +583,8 @@ void clearNumberOnClock(int num){
 			break;
  800044a:	e00d      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 10:{
-			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, GPIO_PIN_SET);
+		case 10:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_10_Pin, 1);
  800044c:	2201      	movs	r2, #1
  800044e:	f44f 4180 	mov.w	r1, #16384	; 0x4000
  8000452:	4807      	ldr	r0, [pc, #28]	; (8000470 <clearNumberOnClock+0xec>)
@@ -592,8 +592,8 @@ void clearNumberOnClock(int num){
 			break;
  8000458:	e006      	b.n	8000468 <clearNumberOnClock+0xe4>
 		}
-		case 11:{
-			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, GPIO_PIN_SET);
+		case 11:{ //turn off clock led 0
+			HAL_GPIO_WritePin(GPIOA, CLK_11_Pin, 1);
  800045a:	2201      	movs	r2, #1
  800045c:	f44f 4100 	mov.w	r1, #32768	; 0x8000
  8000460:	4803      	ldr	r0, [pc, #12]	; (8000470 <clearNumberOnClock+0xec>)
