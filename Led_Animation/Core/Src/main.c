@@ -98,24 +98,24 @@ int main(void)
 	  if (counter == 0){
 		  switch (led_stat){
 			  case 0:{  // turn ON red led, turn OFF yellow led, turn OFF green led
-				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin | LED_YELLOW_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_RESET);
-				  counter = 5; // 5s for red led
-				  led_stat = 1;
+				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin | LED_YELLOW_Pin, 1); //turn GREEN, YELLOW off
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 0); //turn RED on
+				  counter = 5;  //5s for red led
+				  led_stat = 1; //change led_stat to turn on YELLOW
 				  break;
 			  }
 			  case 1:{  // turn OFF red led, turn ON yellow led, turn OFF green led
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin | LED_GREEN_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, GPIO_PIN_RESET);
-				  counter = 2; // 2s for yellow led
-				  led_stat = 2;
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin | LED_GREEN_Pin, 1); //turn RED, GREEN off
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin, 0); //turn YELLOW on
+				  counter = 2;  //2s for yellow led
+				  led_stat = 2; //change led_stat to turn on GREEN
 				  break;
 			  }
 			  case 2:{  // turn OFF red led, turn OFF yellow led, turn ON green led
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin | LED_RED_Pin, GPIO_PIN_SET);
-				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, GPIO_PIN_RESET);
-				  counter = 3; // 3s for green led
-				  led_stat = 0;
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin | LED_RED_Pin, 1);  //turn YELLOW, RED off
+				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin, 0); //turn GREEN on
+				  counter = 3;  // 3s for green led
+				  led_stat = 0; // change led_stat to turn on RED
 				  break;
 			  }
 		  }
