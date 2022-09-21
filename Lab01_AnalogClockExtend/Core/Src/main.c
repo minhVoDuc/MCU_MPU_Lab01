@@ -88,10 +88,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int second = 0, minute = 0, hour = 0; // second, minute, hour
-  int second_ = 0, minute_ = 0, hour_ = 0; //prev second, minute, hour
-  int counter = -1; // counter for calculate
-  int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //manage on/off of led
+  int second = 0, minute = 0, hour = 0;    //current second, minute, hour
+  int second_ = 0, minute_ = 0, hour_ = 0; //previous second, minute, hour
+  int counter = -1; // counter for calculate current second, minute, hour
+  int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //manage on/off of led, whenever enable[x] == 0, turn OFF led
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,9 +102,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	if (counter == -1){ // Init state - make all led off
 		clearAllClock();
-		counter=1;
-		enable[0] = 3;
-		setNumberOnClock(0);
+		counter=1; //set counter equal to second 1
+		enable[0] = 3; // led 0 current have 3 unit active in
+		setNumberOnClock(0); // enable[0] != 0 --> turn on clock 0
 	}
 	if (counter == 3600) counter=0;
 	if (counter % 5 == 0){
