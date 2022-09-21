@@ -89,7 +89,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   int led_stat_1 = 0, led_stat_2 = 2; //0: turn GREEN on, 1: turn YELLOW on, 2: turn RED on
   int counter_1 = 0, counter_2 = 0;
-  const int counter_lst[3] = {6, 3, 9}; //(6: GREEN stays, 3: YELLOW stays, 9: RED stays) * 1000ms
+  const int counter_lst[3] = {3, 2, 5}; //(6: GREEN stays, 3: YELLOW stays, 9: RED stays) * 1000ms
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
