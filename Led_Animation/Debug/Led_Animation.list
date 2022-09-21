@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   00004549  00000000  00000000  00039ab2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00079720  00000000  00000000  0003dffb  2**0
+ 18 .debug_str    0007973c  00000000  00000000  0003dffb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b771b  2**0
+ 19 .comment      00000053  00000000  00000000  000b7737  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000d34  00000000  00000000  000b7770  2**2
+ 20 .debug_frame  00000d34  00000000  00000000  000b778c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -138,7 +138,7 @@ int main(void)
  8000182:	d00f      	beq.n	80001a4 <main+0x58>
  8000184:	e02d      	b.n	80001e2 <main+0x96>
 			  case 0:{  // turn ON red led, turn OFF yellow led, turn OFF green led
-				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin|LED_YELLOW_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_GREEN_Pin | LED_YELLOW_Pin, GPIO_PIN_SET);
  8000186:	2201      	movs	r2, #1
  8000188:	21c0      	movs	r1, #192	; 0xc0
  800018a:	481a      	ldr	r0, [pc, #104]	; (80001f4 <main+0xa8>)
@@ -158,7 +158,7 @@ int main(void)
  80001a2:	e01e      	b.n	80001e2 <main+0x96>
 			  }
 			  case 1:{  // turn OFF red led, turn ON yellow led, turn OFF green led
-				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_GREEN_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin | LED_GREEN_Pin, GPIO_PIN_SET);
  80001a4:	2201      	movs	r2, #1
  80001a6:	21a0      	movs	r1, #160	; 0xa0
  80001a8:	4812      	ldr	r0, [pc, #72]	; (80001f4 <main+0xa8>)
@@ -178,7 +178,7 @@ int main(void)
  80001c0:	e00f      	b.n	80001e2 <main+0x96>
 			  }
 			  case 2:{  // turn OFF red led, turn OFF yellow led, turn ON green led
-				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin|LED_RED_Pin, GPIO_PIN_SET);
+				  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin | LED_RED_Pin, GPIO_PIN_SET);
  80001c2:	2201      	movs	r2, #1
  80001c4:	2160      	movs	r1, #96	; 0x60
  80001c6:	480b      	ldr	r0, [pc, #44]	; (80001f4 <main+0xa8>)
