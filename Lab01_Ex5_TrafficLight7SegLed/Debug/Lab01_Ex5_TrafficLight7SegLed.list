@@ -118,7 +118,7 @@ int main(void)
  8000168:	617b      	str	r3, [r7, #20]
  800016a:	2300      	movs	r3, #0
  800016c:	613b      	str	r3, [r7, #16]
-  const int counter_lst[3] = {3, 2, 5}; //(6: GREEN stays, 3: YELLOW stays, 9: RED stays) * 1000ms
+  const int counter_lst[3] = {3, 1, 5}; //(6: GREEN stays, 3: YELLOW stays, 9: RED stays) * 1000ms
  800016e:	4a5a      	ldr	r2, [pc, #360]	; (80002d8 <main+0x18c>)
  8000170:	1d3b      	adds	r3, r7, #4
  8000172:	ca07      	ldmia	r2, {r0, r1, r2}
