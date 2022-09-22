@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0001559e  00000000  00000000  000246d0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000465c  00000000  00000000  00039c6e  2**0
+ 17 .debug_line   0000465e  00000000  00000000  00039c6e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00079916  00000000  00000000  0003e2ca  2**0
+ 18 .debug_str    00079916  00000000  00000000  0003e2cc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b7be0  2**0
+ 19 .comment      00000053  00000000  00000000  000b7be2  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000d98  00000000  00000000  000b7c34  2**2
+ 20 .debug_frame  00000d98  00000000  00000000  000b7c38  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -108,24 +108,24 @@ int main(void)
   MX_GPIO_Init();
  800015a:	f000 f943 	bl	80003e4 <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
-  int second = 0, minute = 0, hour = 0; // second, minute, hour
+  int second = 0, minute = 0, hour = 0;    //current led index for second, minute, hour
  800015e:	2300      	movs	r3, #0
  8000160:	64fb      	str	r3, [r7, #76]	; 0x4c
  8000162:	2300      	movs	r3, #0
  8000164:	64bb      	str	r3, [r7, #72]	; 0x48
  8000166:	2300      	movs	r3, #0
  8000168:	647b      	str	r3, [r7, #68]	; 0x44
-  int second_ = 0, minute_ = 0, hour_ = 0; //prev second, minute, hour
+  int second_ = 0, minute_ = 0, hour_ = 0; //previous led index for second, minute, hour
  800016a:	2300      	movs	r3, #0
  800016c:	63fb      	str	r3, [r7, #60]	; 0x3c
  800016e:	2300      	movs	r3, #0
  8000170:	63bb      	str	r3, [r7, #56]	; 0x38
  8000172:	2300      	movs	r3, #0
  8000174:	637b      	str	r3, [r7, #52]	; 0x34
-  int counter = -1; // counter for calculate
+  int counter = -1; // counter for calculate current second, minute, hour
  8000176:	f04f 33ff 	mov.w	r3, #4294967295
  800017a:	643b      	str	r3, [r7, #64]	; 0x40
-  int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //manage on/off of led
+  int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //token instance for each led, token == 0 - led OFF; otherwise, led ON
  800017c:	1d3b      	adds	r3, r7, #4
  800017e:	2230      	movs	r2, #48	; 0x30
  8000180:	2100      	movs	r1, #0
@@ -136,28 +136,31 @@ int main(void)
   {
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-	if (counter == -1){ // Init state - make all led off
+	if (counter == -1){ // Initial state - make all led off
  8000188:	6c3b      	ldr	r3, [r7, #64]	; 0x40
  800018a:	f1b3 3fff 	cmp.w	r3, #4294967295
  800018e:	d108      	bne.n	80001a2 <main+0x56>
 		clearAllClock();
  8000190:	f000 f95c 	bl	800044c <clearAllClock>
-		counter=1;
+		counter=1; //set counter equal to second 1
  8000194:	2301      	movs	r3, #1
  8000196:	643b      	str	r3, [r7, #64]	; 0x40
-		enable[0] = 3;
+		enable[0] = 3; // led 0 is set to contain tokens
  8000198:	2303      	movs	r3, #3
  800019a:	607b      	str	r3, [r7, #4]
-		setNumberOnClock(0);
+		setNumberOnClock(0); // enable[0] != 0 --> turn on clock 0
  800019c:	2000      	movs	r0, #0
  800019e:	f000 f961 	bl	8000464 <setNumberOnClock>
 	}
-	if (counter == 3600) counter=0;
+
+	if (counter == 3600) counter=0; //Represent 1 hour passed, set counter = 0
  80001a2:	6c3b      	ldr	r3, [r7, #64]	; 0x40
  80001a4:	f5b3 6f61 	cmp.w	r3, #3600	; 0xe10
  80001a8:	d101      	bne.n	80001ae <main+0x62>
  80001aa:	2300      	movs	r3, #0
  80001ac:	643b      	str	r3, [r7, #64]	; 0x40
+
+	/* change led for SECOND (each 5-second) */
 	if (counter % 5 == 0){
  80001ae:	6c39      	ldr	r1, [r7, #64]	; 0x40
  80001b0:	4b6b      	ldr	r3, [pc, #428]	; (8000360 <main+0x214>)
@@ -171,7 +174,7 @@ int main(void)
  80001c2:	1aca      	subs	r2, r1, r3
  80001c4:	2a00      	cmp	r2, #0
  80001c6:	d137      	bne.n	8000238 <main+0xec>
-		second++;
+		second++; //switch to next SECOND led index (from now on, it becomes current led)
  80001c8:	6cfb      	ldr	r3, [r7, #76]	; 0x4c
  80001ca:	3301      	adds	r3, #1
  80001cc:	64fb      	str	r3, [r7, #76]	; 0x4c
@@ -185,7 +188,7 @@ int main(void)
  80001d8:	d101      	bne.n	80001de <main+0x92>
  80001da:	2300      	movs	r3, #0
  80001dc:	64fb      	str	r3, [r7, #76]	; 0x4c
-		enable[second_]--;
+		enable[second_]--; //decrease token of previous SECOND led
  80001de:	6bfb      	ldr	r3, [r7, #60]	; 0x3c
  80001e0:	009b      	lsls	r3, r3, #2
  80001e2:	f107 0250 	add.w	r2, r7, #80	; 0x50
@@ -197,7 +200,7 @@ int main(void)
  80001f2:	f107 0150 	add.w	r1, r7, #80	; 0x50
  80001f6:	440b      	add	r3, r1
  80001f8:	f843 2c4c 	str.w	r2, [r3, #-76]
-		if (enable[second_] == 0) clearNumberOnClock(second_);
+		if (enable[second_] == 0) clearNumberOnClock(second_); //check token, if token==0, turn OFF previous SECOND led
  80001fc:	6bfb      	ldr	r3, [r7, #60]	; 0x3c
  80001fe:	009b      	lsls	r3, r3, #2
  8000200:	f107 0250 	add.w	r2, r7, #80	; 0x50
@@ -219,10 +222,12 @@ int main(void)
  8000228:	f107 0150 	add.w	r1, r7, #80	; 0x50
  800022c:	440b      	add	r3, r1
  800022e:	f843 2c4c 	str.w	r2, [r3, #-76]
-		setNumberOnClock(second);
+		setNumberOnClock(second); //always turn ON current SECOND led
  8000232:	6cf8      	ldr	r0, [r7, #76]	; 0x4c
  8000234:	f000 f916 	bl	8000464 <setNumberOnClock>
 	}
+
+	/* change led for MINUTE (each 5-minute or 300-second) */
 	if (counter % 300 == 0){
  8000238:	6c3a      	ldr	r2, [r7, #64]	; 0x40
  800023a:	4b4a      	ldr	r3, [pc, #296]	; (8000364 <main+0x218>)
@@ -235,7 +240,7 @@ int main(void)
  800024e:	1ad3      	subs	r3, r2, r3
  8000250:	2b00      	cmp	r3, #0
  8000252:	d137      	bne.n	80002c4 <main+0x178>
-		minute++;
+		minute++; //switch to next MINUTE led index (from now on, it becomes current led)
  8000254:	6cbb      	ldr	r3, [r7, #72]	; 0x48
  8000256:	3301      	adds	r3, #1
  8000258:	64bb      	str	r3, [r7, #72]	; 0x48
@@ -243,19 +248,13 @@ int main(void)
  800025a:	6cbb      	ldr	r3, [r7, #72]	; 0x48
  800025c:	3b01      	subs	r3, #1
  800025e:	63bb      	str	r3, [r7, #56]	; 0x38
-		if (minute==12){
+		if (minute==12) minute=0;
  8000260:	6cbb      	ldr	r3, [r7, #72]	; 0x48
  8000262:	2b0c      	cmp	r3, #12
  8000264:	d101      	bne.n	800026a <main+0x11e>
-			minute=0;
  8000266:	2300      	movs	r3, #0
  8000268:	64bb      	str	r3, [r7, #72]	; 0x48
-//			enable[hour_]--;
-//			if (enable[hour_] == 0) clearNumberOnClock(hour_);
-//			enable[h]++;
-//			setNumberOnClock(h);
-		}
-		enable[minute_]--;
+		enable[minute_]--;  //decrease token of previous MINUTE led
  800026a:	6bbb      	ldr	r3, [r7, #56]	; 0x38
  800026c:	009b      	lsls	r3, r3, #2
  800026e:	f107 0250 	add.w	r2, r7, #80	; 0x50
@@ -267,7 +266,7 @@ int main(void)
  800027e:	f107 0150 	add.w	r1, r7, #80	; 0x50
  8000282:	440b      	add	r3, r1
  8000284:	f843 2c4c 	str.w	r2, [r3, #-76]
-		if (enable[minute_] == 0) clearNumberOnClock(minute_);
+		if (enable[minute_] == 0) clearNumberOnClock(minute_); //check token, if token==0, turn OFF previous MINUTE led
  8000288:	6bbb      	ldr	r3, [r7, #56]	; 0x38
  800028a:	009b      	lsls	r3, r3, #2
  800028c:	f107 0250 	add.w	r2, r7, #80	; 0x50
@@ -289,10 +288,12 @@ int main(void)
  80002b4:	f107 0150 	add.w	r1, r7, #80	; 0x50
  80002b8:	440b      	add	r3, r1
  80002ba:	f843 2c4c 	str.w	r2, [r3, #-76]
-		setNumberOnClock(minute);
+		setNumberOnClock(minute); //always turn ON current MINUTE led
  80002be:	6cb8      	ldr	r0, [r7, #72]	; 0x48
  80002c0:	f000 f8d0 	bl	8000464 <setNumberOnClock>
 	}
+
+	/* change led for HOUR (each 1-hour or 3600-second) */
 	if (counter % 3600 == 0){
  80002c4:	6c3b      	ldr	r3, [r7, #64]	; 0x40
  80002c6:	4a28      	ldr	r2, [pc, #160]	; (8000368 <main+0x21c>)
@@ -306,7 +307,7 @@ int main(void)
  80002dc:	1a9a      	subs	r2, r3, r2
  80002de:	2a00      	cmp	r2, #0
  80002e0:	d137      	bne.n	8000352 <main+0x206>
-		hour++;
+		hour++; //switch to next HOUR led index (from now on, it becomes current led)
  80002e2:	6c7b      	ldr	r3, [r7, #68]	; 0x44
  80002e4:	3301      	adds	r3, #1
  80002e6:	647b      	str	r3, [r7, #68]	; 0x44
@@ -320,7 +321,7 @@ int main(void)
  80002f2:	d101      	bne.n	80002f8 <main+0x1ac>
  80002f4:	2300      	movs	r3, #0
  80002f6:	647b      	str	r3, [r7, #68]	; 0x44
-		enable[hour_]--;
+		enable[hour_]--; //decrease token of previous HOUR led
  80002f8:	6b7b      	ldr	r3, [r7, #52]	; 0x34
  80002fa:	009b      	lsls	r3, r3, #2
  80002fc:	f107 0250 	add.w	r2, r7, #80	; 0x50
@@ -332,7 +333,7 @@ int main(void)
  800030c:	f107 0150 	add.w	r1, r7, #80	; 0x50
  8000310:	440b      	add	r3, r1
  8000312:	f843 2c4c 	str.w	r2, [r3, #-76]
-		if (enable[hour_] == 0) clearNumberOnClock(hour_);
+		if (enable[hour_] == 0) clearNumberOnClock(hour_); //check token, if token==0, turn OFF previous HOUR led
  8000316:	6b7b      	ldr	r3, [r7, #52]	; 0x34
  8000318:	009b      	lsls	r3, r3, #2
  800031a:	f107 0250 	add.w	r2, r7, #80	; 0x50
@@ -358,14 +359,15 @@ int main(void)
  800034c:	6c78      	ldr	r0, [r7, #68]	; 0x44
  800034e:	f000 f889 	bl	8000464 <setNumberOnClock>
 	}
-	counter++;
+
+	counter++; //as second increase
  8000352:	6c3b      	ldr	r3, [r7, #64]	; 0x40
  8000354:	3301      	adds	r3, #1
  8000356:	643b      	str	r3, [r7, #64]	; 0x40
-	HAL_Delay(10);
+	HAL_Delay(10); //delay 10ms for Proteus simulation
  8000358:	200a      	movs	r0, #10
  800035a:	f000 fa61 	bl	8000820 <HAL_Delay>
-	if (counter == -1){ // Init state - make all led off
+	if (counter == -1){ // Initial state - make all led off
  800035e:	e713      	b.n	8000188 <main+0x3c>
  8000360:	66666667 	.word	0x66666667
  8000364:	1b4e81b5 	.word	0x1b4e81b5

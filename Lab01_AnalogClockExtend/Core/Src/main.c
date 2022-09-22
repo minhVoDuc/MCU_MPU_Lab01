@@ -88,10 +88,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int second = 0, minute = 0, hour = 0;    //current second, minute, hour
-  int second_ = 0, minute_ = 0, hour_ = 0; //previous second, minute, hour
+  int second = 0, minute = 0, hour = 0;    //current led index for second, minute, hour
+  int second_ = 0, minute_ = 0, hour_ = 0; //previous led index for second, minute, hour
   int counter = -1; // counter for calculate current second, minute, hour
-  int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //manage on/off of led, whenever enable[x] == 0, turn OFF led
+  int enable[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //token instance for each led, token == 0 - led OFF; otherwise, led ON
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,51 +100,50 @@ int main(void)
   {
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-	if (counter == -1){ // Init state - make all led off
+	if (counter == -1){ // Initial state - make all led off
 		clearAllClock();
 		counter=1; //set counter equal to second 1
-		enable[0] = 3; // led 0 current have 3 unit active in
+		enable[0] = 3; // led 0 is set to contain tokens
 		setNumberOnClock(0); // enable[0] != 0 --> turn on clock 0
 	}
-	if (counter == 3600) counter=0;
+
+	if (counter == 3600) counter=0; //Represent 1 hour passed, set counter = 0
+
+	/* change led for SECOND (each 5-second) */
 	if (counter % 5 == 0){
-		second++;
+		second++; //switch to next SECOND led index (from now on, it becomes current led)
 		second_ = second-1;
 		if (second==12) second=0;
-		enable[second_]--;
-		if (enable[second_] == 0) clearNumberOnClock(second_);
+		enable[second_]--; //decrease token of previous SECOND led
+		if (enable[second_] == 0) clearNumberOnClock(second_); //check token, if token==0, turn OFF previous SECOND led
 		enable[second]++;
-		setNumberOnClock(second);
+		setNumberOnClock(second); //always turn ON current SECOND led
 	}
+
+	/* change led for MINUTE (each 5-minute or 300-second) */
 	if (counter % 300 == 0){
-		minute++;
+		minute++; //switch to next MINUTE led index (from now on, it becomes current led)
 		minute_ = minute-1;
-		if (minute==12){
-			minute=0;
-//			h++;
-//			hour_ = h-1;
-//			if (h==12) h=0;
-//			enable[hour_]--;
-//			if (enable[hour_] == 0) clearNumberOnClock(hour_);
-//			enable[h]++;
-//			setNumberOnClock(h);
-		}
-		enable[minute_]--;
-		if (enable[minute_] == 0) clearNumberOnClock(minute_);
+		if (minute==12) minute=0;
+		enable[minute_]--;  //decrease token of previous MINUTE led
+		if (enable[minute_] == 0) clearNumberOnClock(minute_); //check token, if token==0, turn OFF previous MINUTE led
 		enable[minute]++;
-		setNumberOnClock(minute);
+		setNumberOnClock(minute); //always turn ON current MINUTE led
 	}
+
+	/* change led for HOUR (each 1-hour or 3600-second) */
 	if (counter % 3600 == 0){
-		hour++;
+		hour++; //switch to next HOUR led index (from now on, it becomes current led)
 		hour_ = hour-1;
 		if (hour==12) hour=0;
-		enable[hour_]--;
-		if (enable[hour_] == 0) clearNumberOnClock(hour_);
+		enable[hour_]--; //decrease token of previous HOUR led
+		if (enable[hour_] == 0) clearNumberOnClock(hour_); //check token, if token==0, turn OFF previous HOUR led
 		enable[hour]++;
 		setNumberOnClock(hour);
 	}
-	counter++;
-	HAL_Delay(10);
+
+	counter++; //as second increase
+	HAL_Delay(10); //delay 10ms for Proteus simulation
   }
   /* USER CODE END 3 */
 }
